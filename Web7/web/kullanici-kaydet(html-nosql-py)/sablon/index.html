@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Uygulaması</title>
+    <script>
+        const websocket = new WebSocket('ws://localhost:6789');
+
+        websocket.onmessage = function(event) {
+            const message = document.createElement('div');
+            message.textContent = event.data;
+            document.body.appendChild(message);
+        };
+
+        function sendData() {
+            const input = document.getElementById('veriInput').value;
+            websocket.send(JSON.stringify({ veri: input }));
+            document.getElementById('veriInput').value = '';
+        }
+    </script>
+</head>
+<body>
+    <h1>WebSocket ile Veri Gönderme</h1>
+    <input type="text" id="veriInput" placeholder="Veri Girin">
+    <button onclick="sendData()">Veriyi Gönder</button>
+</body>
+</html>
